@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Voice Assistant</title>
+</head>
+<body>
+    <h1>Welcome to the Personalized Voice Assistant!</h1>
+    <form action="/speak" method="post">
+        <label for="text">Enter text to speak:</label><br>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Speak">
+    </form>
+    <hr>
+    <h2>Weather Information</h2>
+    <form action="/get_weather" method="get">
+        <label for="city">Enter city name:</label>
+        <input type="text" id="city" name="city">
+        <input type="submit" value="Get Weather">
+    </form>
+    <div id="weather-info"></div>
+    <hr>
+    <h2>Top News Headlines</h2>
+    <button onclick="getNews()">Get News</button>
+    <div id="news-info"></div>
+
+    <script>
+        function getNews() {
+            fetch('/get_news')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('news-info').innerText = data.message;
+                })
+                .catch(error => {
+                    console.error('Error fetching news:', error);
+                });
+        }
+    </script>
+</body>
+</html>
